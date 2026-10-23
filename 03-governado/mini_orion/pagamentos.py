@@ -28,7 +28,7 @@ class GatewayPagamentoY:
     Essa e a medida pratica do valor da fronteira.
     """
 
-    LIMITE = 5_000.0
+    LIMITE = 75_000.0
 
     def cobrar(self, pedido: PedidoCobranca) -> ResultadoCobranca:
         if pedido.valor > self.LIMITE:

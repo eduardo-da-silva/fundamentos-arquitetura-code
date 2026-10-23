@@ -34,6 +34,7 @@ class ServicoCheckout:
         pedido = self._pedidos.emitir(carrinho, cliente, total)
 
         # Fora do caminho critico: a compra ja esta valida neste ponto.
-        self._notificador.publicar(evento_de_confirmacao(pedido))
+        evento = evento_de_confirmacao(pedido)
+        self._notificador.publicar(evento)
 
         return "confirmado"

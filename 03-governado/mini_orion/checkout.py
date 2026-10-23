@@ -15,7 +15,6 @@ from mini_orion.contratos import (
 from mini_orion.dominio import Carrinho, Cliente
 from mini_orion.pedidos import RepositorioPedidos
 
-
 class ServicoCheckout:
     def __init__(
         self,
