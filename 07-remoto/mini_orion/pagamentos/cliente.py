@@ -14,6 +14,7 @@ from mini_orion.pagamentos.api import (
     PedidoCobranca,
     ResultadoCobranca,
 )
+from mini_orion.pagamentos.contrato import RESULTADOS_V2, Leitor, leitor_tolerante
 from mini_orion.rede.api import (
     TIMEOUT_POR_CHAMADA,
     Carga,
@@ -30,8 +31,10 @@ class ClientePagamentos:
         transporte: Transporte,
         tentativas: int = 2,
         timeout: float = TIMEOUT_POR_CHAMADA,
+        leitor: Leitor = leitor_tolerante(RESULTADOS_V2),
     ) -> None:
         self._transporte = transporte
+        self._leitor = leitor
         self._tentativas = tentativas
         self._timeout = timeout
 
@@ -42,7 +45,7 @@ class ClientePagamentos:
                 resposta = self._transporte.chamar(DESTINO, "cobrar", carga, self._timeout)
             except TimeoutDeRede:
                 continue  # repetir e seguro? Depende de a cobranca ser idempotente.
-            return ResultadoCobranca(resposta["resultado"])
+            return self._leitor(resposta)
         raise CobrancaIndeterminada(f"{self._tentativas} tentativas sem resposta")
 
     def _escrever(self, pedido: PedidoCobranca) -> Carga:

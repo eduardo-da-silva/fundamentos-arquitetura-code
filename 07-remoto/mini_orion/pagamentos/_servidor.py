@@ -7,7 +7,7 @@ ponto de montagem.
 
 O formato da carga e lido e escrito AQUI e, separadamente, em
 `cliente.py`. Sao duas implementacoes do mesmo acordo, como seriam em
-dois repositorios. A Aula 19 mostra o que isso cobra.
+dois repositorios. A Aula 18 escreve o acordo em `contrato.py`.
 """
 
 from mini_orion.nucleo.modelos import ChaveIdempotencia

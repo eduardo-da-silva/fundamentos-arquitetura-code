@@ -23,6 +23,7 @@ class ResultadoCobranca(Enum):
     RECUSADA_PELO_EMISSOR = "recusada_pelo_emissor"
     ACIMA_DO_LIMITE = "acima_do_limite"
     PROVEDOR_INDISPONIVEL = "provedor_indisponivel"
+    EM_ANALISE = "em_analise"  # acrescentado na v2 do contrato (Aula 18)
 
     @property
     def deve_tentar_outro_provedor(self) -> bool:

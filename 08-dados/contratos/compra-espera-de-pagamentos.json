@@ -1,0 +1,28 @@
+{
+  "consumidor": "compra",
+  "produtor": "pagamentos",
+  "operacao": "cobrar",
+  "versao_do_consumidor": 1,
+  "interacoes": [
+    {
+      "descricao": "cobranca comum de um cartao valido",
+      "pedido": {"valor": 300.0, "cartao": "4111111111", "parcelas": 1, "chave": "k-1"},
+      "resposta": {
+        "resultado": {
+          "tipo": "texto",
+          "valores": ["aprovada"]
+        }
+      }
+    },
+    {
+      "descricao": "cobranca de valor alto, ainda dentro do limite do provedor",
+      "pedido": {"valor": 6000.0, "cartao": "4111111111", "parcelas": 1, "chave": "k-2"},
+      "resposta": {
+        "resultado": {
+          "tipo": "texto",
+          "valores": ["aprovada", "recusada_pelo_emissor", "acima_do_limite", "provedor_indisponivel"]
+        }
+      }
+    }
+  ]
+}

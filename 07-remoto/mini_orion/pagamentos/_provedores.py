@@ -45,3 +45,19 @@ class GatewayForaDoAr:
 
     def cobrar(self, pedido: PedidoCobranca) -> ResultadoCobranca:
         return ResultadoCobranca.PROVEDOR_INDISPONIVEL
+
+
+class GatewayPagamentoXv2(GatewayPagamentoX):
+    """Provedor principal depois da v2: cobrancas altas ficam em analise.
+
+    A analise antifraude e uma mudanca legitima do produtor. O que ela
+    cria, para quem consome, e um valor de resultado que a v1 nao conhece.
+    """
+
+    LIMITE_SEM_ANALISE = 5_000.0
+
+    def cobrar(self, pedido: PedidoCobranca) -> ResultadoCobranca:
+        resultado = super().cobrar(pedido)
+        if resultado is ResultadoCobranca.APROVADA and pedido.valor > self.LIMITE_SEM_ANALISE:
+            return ResultadoCobranca.EM_ANALISE
+        return resultado
